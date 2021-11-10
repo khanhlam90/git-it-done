@@ -85,9 +85,19 @@ var displayRepos = function(repos, searchTerm) {
   // format repo name
   var repoName = repos[i].owner.login + "/" + repos[i].name;
 
-  // create a container for each repo
-  var repoEl = document.createElement("div");
+  // 1. create a container for each repo
+  // var repoEl = document.createElement("a");
+  // repoEl.classList = "list-item flex-row justify-space-between align-center";
+  // //set attribute to link to the single page
+  // repoEl.setAttribute("href", "./single-repo.html");
+
+  // 2. create a link for each repo - this is to append the the query parameter for specific repo issue
+  // (recall that we first set the href to the single-repo html)
+  // now creating a new parameter - that only takes you to the single-repo page, but the url link now includes the repo name
+  // for example: git-it-done/single-repo.html?repo=facebook/Ax
+  var repoEl = document.createElement("a");
   repoEl.classList = "list-item flex-row justify-space-between align-center";
+  repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
 
   // create a span element to hold repository name
   var titleEl = document.createElement("span");
