@@ -6,6 +6,37 @@ var issueContainerEl = document.querySelector("#issues-container");
 //create the var to append the message that the repo has more than 30 issues
 var limitWarningEl = document.querySelector("#limit-warning");
 
+//add repo name to the header of the page - recall we have <span id="repo-name">
+var repoNameEl = document.querySelector("#repo-name");
+
+
+// this function is to get the repo name used for issues
+  getRepoName = function () {
+    //to get the repo name passed from main page in the url
+    //grab repo name from url query string
+    var queryString = document.location.search;
+    //console.log(queryString);
+
+    // this is to split  on the = and will end up with an array with 2 elements
+    // we care about the second element, so array #2 is expressed as [1]
+    var repoName = queryString.split("=")[1];
+    //console.log(repoName);
+
+    if (repoName) {
+      
+      //append the repo name into the header from the variable above 
+      //display repo name on the page
+      repoNameEl.textContent = repoName;
+      //pass the repoName variable into the getRepoIssues() function
+      getRepoIssues(repoName);
+    }
+    else {
+       // if no repo was given, redirect to the homepage
+      document.location.replace("./index.html");
+    }
+};
+
+
 
 var getRepoIssues = function(repo) {
   //console.log(repo);
@@ -27,13 +58,15 @@ var getRepoIssues = function(repo) {
 
           //then, replace the console.log with the function call
           displayWarning(repo);
-          
         }
       });
     }
     else {
-      console.log(response);
-      alert("There was a problem with your request!");
+      // console.log(response);
+      // alert("There was a problem with your request!");
+      //2. send redirect user back to the homepage rather than send the user an alert
+      //2. if not successful, redirect to homepage
+      document.location.replace("./index.html");
     }
   });
 };
@@ -99,4 +132,5 @@ var displayWarning = function(repo) {
 };
 
 
-getRepoIssues("facebook/react");
+//this function is for to get the repo name
+getRepoName();
